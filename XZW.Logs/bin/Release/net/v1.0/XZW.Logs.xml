@@ -1344,11 +1344,6 @@
             The appSettings key from App.Config that contains the connection string.
             </summary>
         </member>
-        <member name="F:log4net.Appender.AdoNetAppender.m_connectionStringName">
-            <summary>
-            The connectionStrings key from App.Config that contains the connection string.
-            </summary>
-        </member>
         <member name="F:log4net.Appender.AdoNetAppender.m_connectionType">
             <summary>
             String type name of the <see cref="T:System.Data.IDbConnection"/> type name.
@@ -1411,14 +1406,6 @@
             <summary>
             The appSettings key from App.Config that contains the connection string.
             </summary>
-        </member>
-        <member name="P:log4net.Appender.AdoNetAppender.ConnectionStringName">
-            <summary>
-            The connectionStrings key from App.Config that contains the connection string.
-            </summary>
-            <remarks>
-            This property requires at least .NET 2.0.
-            </remarks>
         </member>
         <member name="P:log4net.Appender.AdoNetAppender.ConnectionType">
             <summary>
@@ -5347,198 +5334,6 @@
             </para>
             </remarks>
         </member>
-        <member name="T:log4net.Appender.ManagedColoredConsoleAppender">
-            <summary>
-            Appends colorful logging events to the console, using the .NET 2
-            built-in capabilities.
-            </summary>
-            <remarks>
-            <para>
-            ManagedColoredConsoleAppender appends log events to the standard output stream
-            or the error output stream using a layout specified by the 
-            user. It also allows the color of a specific type of message to be set.
-            </para>
-            <para>
-            By default, all output is written to the console's standard output stream.
-            The <see cref="P:log4net.Appender.ManagedColoredConsoleAppender.Target"/> property can be set to direct the output to the
-            error stream.
-            </para>
-            <para>
-            When configuring the colored console appender, mappings should be
-            specified to map logging levels to colors. For example:
-            </para>
-            <code lang="XML" escaped="true">
-            <mapping>
-            	<level value="ERROR"/>
-            	<foreColor value="DarkRed"/>
-            	<backColor value="White"/>
-            </mapping>
-            <mapping>
-            	<level value="WARN"/>
-            	<foreColor value="Yellow"/>
-            </mapping>
-            <mapping>
-            	<level value="INFO"/>
-            	<foreColor value="White"/>
-            </mapping>
-            <mapping>
-            	<level value="DEBUG"/>
-            	<foreColor value="Blue"/>
-            </mapping>
-            </code>
-            <para>
-            The Level is the standard log4net logging level while
-            ForeColor and BackColor are the values of <see cref="T:System.ConsoleColor"/>
-            enumeration.
-            </para>
-            <para>
-            Based on the ColoredConsoleAppender
-            </para>
-            </remarks>
-            <author>Rick Hobbs</author>
-            <author>Nicko Cadell</author>
-            <author>Pavlos Touboulidis</author>
-        </member>
-        <member name="F:log4net.Appender.ManagedColoredConsoleAppender.ConsoleOut">
-            <summary>
-            The <see cref="P:log4net.Appender.ManagedColoredConsoleAppender.Target"/> to use when writing to the Console 
-            standard output stream.
-            </summary>
-            <remarks>
-            <para>
-            The <see cref="P:log4net.Appender.ManagedColoredConsoleAppender.Target"/> to use when writing to the Console 
-            standard output stream.
-            </para>
-            </remarks>
-        </member>
-        <member name="F:log4net.Appender.ManagedColoredConsoleAppender.ConsoleError">
-            <summary>
-            The <see cref="P:log4net.Appender.ManagedColoredConsoleAppender.Target"/> to use when writing to the Console 
-            standard error output stream.
-            </summary>
-            <remarks>
-            <para>
-            The <see cref="P:log4net.Appender.ManagedColoredConsoleAppender.Target"/> to use when writing to the Console 
-            standard error output stream.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:log4net.Appender.ManagedColoredConsoleAppender.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:log4net.Appender.ManagedColoredConsoleAppender"/> class.
-            </summary>
-            <remarks>
-            The instance of the <see cref="T:log4net.Appender.ManagedColoredConsoleAppender"/> class is set up to write 
-            to the standard output stream.
-            </remarks>
-        </member>
-        <member name="M:log4net.Appender.ManagedColoredConsoleAppender.AddMapping(log4net.Appender.ManagedColoredConsoleAppender.LevelColors)">
-            <summary>
-            Add a mapping of level to color - done by the config file
-            </summary>
-            <param name="mapping">The mapping to add</param>
-            <remarks>
-            <para>
-            Add a <see cref="T:log4net.Appender.ManagedColoredConsoleAppender.LevelColors"/> mapping to this appender.
-            Each mapping defines the foreground and background colors
-            for a level.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:log4net.Appender.ManagedColoredConsoleAppender.Append(log4net.Core.LoggingEvent)">
-            <summary>
-            This method is called by the <see cref="M:AppenderSkeleton.DoAppend(log4net.Core.LoggingEvent)"/> method.
-            </summary>
-            <param name="loggingEvent">The event to log.</param>
-            <remarks>
-            <para>
-            Writes the event to the console.
-            </para>
-            <para>
-            The format of the output will depend on the appender's layout.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:log4net.Appender.ManagedColoredConsoleAppender.ActivateOptions">
-            <summary>
-            Initialize the options for this appender
-            </summary>
-            <remarks>
-            <para>
-            Initialize the level to color mappings set on this appender.
-            </para>
-            </remarks>
-        </member>
-        <member name="F:log4net.Appender.ManagedColoredConsoleAppender.m_writeToErrorStream">
-            <summary>
-            Flag to write output to the error stream rather than the standard output stream
-            </summary>
-        </member>
-        <member name="F:log4net.Appender.ManagedColoredConsoleAppender.m_levelMapping">
-            <summary>
-            Mapping from level object to color value
-            </summary>
-        </member>
-        <member name="P:log4net.Appender.ManagedColoredConsoleAppender.Target">
-            <summary>
-            Target is the value of the console output stream.
-            This is either <c>"Console.Out"</c> or <c>"Console.Error"</c>.
-            </summary>
-            <value>
-            Target is the value of the console output stream.
-            This is either <c>"Console.Out"</c> or <c>"Console.Error"</c>.
-            </value>
-            <remarks>
-            <para>
-            Target is the value of the console output stream.
-            This is either <c>"Console.Out"</c> or <c>"Console.Error"</c>.
-            </para>
-            </remarks>
-        </member>
-        <member name="P:log4net.Appender.ManagedColoredConsoleAppender.RequiresLayout">
-            <summary>
-            This appender requires a <see cref="N:log4net.Layout"/> to be set.
-            </summary>
-            <value><c>true</c></value>
-            <remarks>
-            <para>
-            This appender requires a <see cref="N:log4net.Layout"/> to be set.
-            </para>
-            </remarks>
-        </member>
-        <member name="T:log4net.Appender.ManagedColoredConsoleAppender.LevelColors">
-            <summary>
-            A class to act as a mapping between the level that a logging call is made at and
-            the color it should be displayed as.
-            </summary>
-            <remarks>
-            <para>
-            Defines the mapping between a level and the color it should be displayed in.
-            </para>
-            </remarks>
-        </member>
-        <member name="P:log4net.Appender.ManagedColoredConsoleAppender.LevelColors.ForeColor">
-            <summary>
-            The mapped foreground color for the specified level
-            </summary>
-            <remarks>
-            <para>
-            Required property.
-            The mapped foreground color for the specified level.
-            </para>
-            </remarks>
-        </member>
-        <member name="P:log4net.Appender.ManagedColoredConsoleAppender.LevelColors.BackColor">
-            <summary>
-            The mapped background color for the specified level
-            </summary>
-            <remarks>
-            <para>
-            Required property.
-            The mapped background color for the specified level.
-            </para>
-            </remarks>
-        </member>
         <member name="T:log4net.Appender.MemoryAppender">
             <summary>
             Stores logging events in an array.
@@ -7447,8 +7242,6 @@
             <summary>
             Gets or sets the strategy for determining the current date and time. The default
             implementation is to use LocalDateTime which internally calls through to DateTime.Now. 
-            DateTime.UtcNow may be used on frameworks newer than .NET 1.0 by specifying
-            <see cref="T:log4net.Appender.RollingFileAppender.UniversalDateTime"/>.
             </summary>
             <value>
             An implementation of the <see cref="T:log4net.Appender.RollingFileAppender.IDateTime"/> interface which returns the current date and time.
@@ -7456,11 +7249,6 @@
             <remarks>
             <para>
             Gets or sets the <see cref="T:log4net.Appender.RollingFileAppender.IDateTime"/> used to return the current date and time.
-            </para>
-            <para>
-            There are two built strategies for determining the current date and time, 
-            <see cref="T:log4net.Appender.RollingFileAppender.LocalDateTime"/>
-            and <see cref="T:log4net.Appender.RollingFileAppender.UniversalDateTime"/>.
             </para>
             <para>
             The default strategy is <see cref="T:log4net.Appender.RollingFileAppender.LocalDateTime"/>.
@@ -7764,22 +7552,6 @@
             </para>
             </remarks>
         </member>
-        <member name="T:log4net.Appender.RollingFileAppender.UniversalDateTime">
-            <summary>
-            Implementation of <see cref="T:log4net.Appender.RollingFileAppender.IDateTime"/> that returns the current time as the coordinated universal time (UTC).
-            </summary>
-        </member>
-        <member name="P:log4net.Appender.RollingFileAppender.UniversalDateTime.Now">
-            <summary>
-            Gets the <b>current</b> time.
-            </summary>
-            <value>The <b>current</b> time.</value>
-            <remarks>
-            <para>
-            Gets the <b>current</b> time.
-            </para>
-            </remarks>
-        </member>
         <member name="T:log4net.Appender.SmtpAppender">
             <summary>
             Send an e-mail when a specific logging event occurs, typically on errors 
@@ -8014,33 +7786,17 @@
             Gets or sets the priority of the e-mail message
             </summary>
             <value>
-            One of the <see cref="T:System.Net.Mail.MailPriority"/> values.
+            One of the <see cref="T:System.Web.Mail.MailPriority"/> values.
             </value>
             <remarks>
             <para>
             Sets the priority of the e-mails generated by this
-            appender. The default priority is <see cref="F:System.Net.Mail.MailPriority.Normal"/>.
+            appender. The default priority is <see cref="F:System.Web.Mail.MailPriority.Normal"/>.
             </para>
             <para>
             If you are using this appender to report errors then
-            you may want to set the priority to <see cref="F:System.Net.Mail.MailPriority.High"/>.
+            you may want to set the priority to <see cref="F:System.Web.Mail.MailPriority.High"/>.
             </para>
-            </remarks>
-        </member>
-        <member name="P:log4net.Appender.SmtpAppender.EnableSsl">
-            <summary>
-            Enable or disable use of SSL when sending e-mail message
-            </summary>
-            <remarks>
-            This is available on MS .NET 2.0 runtime and higher
-            </remarks>
-        </member>
-        <member name="P:log4net.Appender.SmtpAppender.ReplyTo">
-            <summary>
-            Gets or sets the reply-to e-mail address.
-            </summary>
-            <remarks>
-            This is available on MS .NET 2.0 runtime and higher
             </remarks>
         </member>
         <member name="P:log4net.Appender.SmtpAppender.SubjectEncoding">
@@ -26362,7 +26118,7 @@
             </para>
             </remarks>
         </member>
-        <member name="T:log4net.Util.TwoArgAction`2">
+        <member name="T:log4net.Util.TwoArgAction">
             <summary>
             Delegate type used for LogicalThreadContextStack's callbacks.
             </summary>
@@ -26395,7 +26151,7 @@
             new instance of a <see cref="T:log4net.Util.LogicalThreadContextStack"/>.
             </summary>
         </member>
-        <member name="M:log4net.Util.LogicalThreadContextStack.#ctor(System.String,log4net.Util.TwoArgAction{System.String,log4net.Util.LogicalThreadContextStack})">
+        <member name="M:log4net.Util.LogicalThreadContextStack.#ctor(System.String,log4net.Util.TwoArgAction)">
             <summary>
             public constructor
             </summary>

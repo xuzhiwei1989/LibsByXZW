@@ -1100,7 +1100,7 @@ namespace log4net.Util
         public static Boolean EqualsIgnoringCase(String a, String b)
         {
 #if NET_1_0 || NET_1_1 || NETCF_1_0
-            return string.Compare(a, b, true, System.Globalization.CultureInfo.InvariantCulture) == 0
+            return string.Compare(a, b, true, System.Globalization.CultureInfo.InvariantCulture) == 0;
 #elif NETSTANDARD1_3
             return CultureInfo.InvariantCulture.CompareInfo.Compare(a, b, CompareOptions.IgnoreCase) == 0;
 #else // >= .NET-2.0

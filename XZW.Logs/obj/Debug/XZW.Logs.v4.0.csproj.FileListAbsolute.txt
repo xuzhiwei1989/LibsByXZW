@@ -1,0 +1,6 @@
+D:\Documents\Visual Studio 2013\Projects\LibsByXZW\XZW.Logs\bin\Debug\net\v4.0\XZW.Logs.config
+D:\Documents\Visual Studio 2013\Projects\LibsByXZW\XZW.Logs\bin\Debug\net\v4.0\XZW.Logs.dll
+D:\Documents\Visual Studio 2013\Projects\LibsByXZW\XZW.Logs\bin\Debug\net\v4.0\XZW.Logs.pdb
+D:\Documents\Visual Studio 2013\Projects\LibsByXZW\XZW.Logs\obj\Debug\XZW.Logs.dll
+D:\Documents\Visual Studio 2013\Projects\LibsByXZW\XZW.Logs\obj\Debug\XZW.Logs.pdb
+D:\Documents\Visual Studio 2013\Projects\LibsByXZW\XZW.Logs\obj\Debug\XZW.Logs.v4.0.csprojResolveAssemblyReference.cache

@@ -1,4 +1,13 @@
-﻿using System;
+﻿#region License
+/* XZW.Logs基于Apache log4net 2.0.8进行封装，
+ * 由于使用Apache log4net时需要在很多地方配置和声明，
+ * 所以才有了对log4net进行二次封装的想法。
+ * 使用本库无需在代码中声明配置文件位置，也无需再声明ILog对象，
+ * 只需直接引用本库并将XZW.Logs拷贝到相应目录即可。
+ * 再次向Apache致敬
+ */
+#endregion
+using System;
 using System.Configuration;
 using System.IO;
 using System.Runtime.CompilerServices;

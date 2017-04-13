@@ -14,47 +14,50 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using log4net;
 using log4net.Config;
+using log4net.Core;
+using log4net.Util;
 
 namespace XZW.Logs
 {
+    public delegate void LogWriteEvent(LogData data);
+
     public static class LogUtils
     {
-        public delegate void LogWriteEvent(LogLevel level, string msg);
 
         public static string ConfigFile { get; set; }
 
         private static ILog log;
 
-        private static LogWriteEvent logWriteEvent;
+        private static LogWriteEvent writeEvent;
         public static event LogWriteEvent WriteEvent
         {
             add
             {
-                LogWriteEvent logWriteEvent = LogUtils.logWriteEvent;
-                LogWriteEvent logWriteEvent2;
+                LogWriteEvent writeEvent1 = LogUtils.writeEvent;
+                LogWriteEvent writeEvent2;
                 do
                 {
-                    logWriteEvent2 = logWriteEvent;
-                    LogWriteEvent value2 = (LogWriteEvent)Delegate.Combine(logWriteEvent2, value);
-                    logWriteEvent = Interlocked.CompareExchange<LogWriteEvent>(ref LogUtils.logWriteEvent, value2, logWriteEvent2);
+                    writeEvent2 = writeEvent1;
+                    LogWriteEvent value2 = (LogWriteEvent)Delegate.Combine(writeEvent2, value);
+                    writeEvent1 = Interlocked.CompareExchange<LogWriteEvent>(ref LogUtils.writeEvent, value2, writeEvent2);
                 }
-                while (logWriteEvent != logWriteEvent2);
+                while (writeEvent1 != writeEvent2);
             }
             remove
             {
-                LogWriteEvent logWriteEvent = LogUtils.logWriteEvent;
+                LogWriteEvent logWriteEvent = LogUtils.writeEvent;
                 LogWriteEvent logWriteEvent2;
                 do
                 {
                     logWriteEvent2 = logWriteEvent;
                     LogWriteEvent value2 = (LogWriteEvent)Delegate.Remove(logWriteEvent2, value);
-                    logWriteEvent = Interlocked.CompareExchange<LogWriteEvent>(ref LogUtils.logWriteEvent, value2, logWriteEvent2);
+                    logWriteEvent = Interlocked.CompareExchange<LogWriteEvent>(ref LogUtils.writeEvent, value2, logWriteEvent2);
                 }
                 while (logWriteEvent != logWriteEvent2);
             }
         }
 
-        public static ILog Default
+        private static ILog Default
         {
             get
             {
@@ -65,6 +68,7 @@ namespace XZW.Logs
                         XmlConfigurator.ConfigureAndWatch(new FileInfo(LogUtils.ConfigFile));
                     }
                     LogUtils.log = LogManager.GetLogger(typeof(LogUtils));
+                    LogUtils.log.WriteEvent = new LogWriteEvent(LogUtils.OnWriteEvent);
                 }
                 return LogUtils.log;
             }
@@ -85,73 +89,62 @@ namespace XZW.Logs
             LogUtils.ConfigFile = text;
         }
 
-        private static void WriteLog(LogLevel level, string msg, bool isTriggerWriteEvent)
+        private static void OnWriteEvent(LogData data)
         {
-            if (isTriggerWriteEvent && LogUtils.logWriteEvent != null)
+            if (LogUtils.writeEvent != null)
             {
-                try
-                {
-                    LogUtils.logWriteEvent(level, msg);
-                }
-                catch
-                {
-                }
+                LogUtils.writeEvent(data);
             }
         }
-
+        
         public static void Debug(string msg, bool isTriggerWriteEvent = true)
         {
-            LogUtils.Default.Debug(msg);
-            LogUtils.WriteLog(LogLevel.Debug, msg, isTriggerWriteEvent);
+            LogUtils.Default.Debug(msg, isTriggerWriteEvent);
         }
 
         public static void Debug(string msg, Exception ex, bool isTriggerWriteEvent = true)
         {
-            LogUtils.Debug(msg + ex.Message + ex.StackTrace, isTriggerWriteEvent);
+            LogUtils.Default.Debug(msg, ex, isTriggerWriteEvent);
         }
 
         public static void Info(string msg, bool isTriggerWriteEvent = true)
         {
-            LogUtils.Default.Info(msg);
-            LogUtils.WriteLog(LogLevel.Info, msg, isTriggerWriteEvent);
+            LogUtils.Default.Info(msg, isTriggerWriteEvent);
         }
 
         public static void Info(string msg, Exception ex, bool isTriggerWriteEvent = true)
         {
-            LogUtils.Info(msg + ex.Message + ex.StackTrace, isTriggerWriteEvent);
+            LogUtils.Default.Info(msg, ex, isTriggerWriteEvent);
         }
 
         public static void Warn(string msg, bool isTriggerWriteEvent = true)
         {
-            LogUtils.Default.Warn(msg);
-            LogUtils.WriteLog(LogLevel.Warn, msg, isTriggerWriteEvent);
+            LogUtils.Default.Warn(msg, isTriggerWriteEvent);
         }
 
         public static void Warn(string msg, Exception ex, bool isTriggerWriteEvent = true)
         {
-            LogUtils.Warn(msg + ex.Message + ex.StackTrace, isTriggerWriteEvent);
+            LogUtils.Default.Warn(msg, ex, isTriggerWriteEvent);
         }
 
         public static void Error(string msg, bool isTriggerWriteEvent = true)
         {
-            LogUtils.Default.Error(msg);
-            LogUtils.WriteLog(LogLevel.Error, msg, isTriggerWriteEvent);
+            LogUtils.Default.Error(msg, isTriggerWriteEvent);
         }
 
         public static void Error(string msg, Exception ex, bool isTriggerWriteEvent = true)
         {
-            LogUtils.Error(msg + ex.Message + ex.StackTrace, isTriggerWriteEvent);
+            LogUtils.Default.Error(msg, ex, isTriggerWriteEvent);
         }
 
         public static void Fatal(string msg, bool isTriggerWriteEvent = true)
         {
-            LogUtils.Default.Fatal(msg);
-            LogUtils.WriteLog(LogLevel.Fatal, msg, isTriggerWriteEvent);
+            LogUtils.Default.Fatal(msg, isTriggerWriteEvent);
         }
 
         public static void Fatal(string msg, Exception ex, bool isTriggerWriteEvent = true)
         {
-            LogUtils.Fatal(msg + ex.Message + ex.StackTrace, isTriggerWriteEvent);
+            LogUtils.Default.Fatal(msg, ex, isTriggerWriteEvent);
         }
     }
 }

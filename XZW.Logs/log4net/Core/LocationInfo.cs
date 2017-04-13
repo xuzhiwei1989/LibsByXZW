@@ -22,6 +22,7 @@ using System.Collections;
 using System.Diagnostics;
 
 using log4net.Util;
+using System.Reflection;
 
 namespace log4net.Core
 {
@@ -90,28 +91,17 @@ namespace log4net.Core
 				{
 					StackTrace st = new StackTrace(true);
 					int frameIndex = 0;
-																				
-					// skip frames not from fqnOfCallingClass
-					while (frameIndex < st.FrameCount)
-					{
-						StackFrame frame = st.GetFrame(frameIndex);
-						if (frame != null && frame.GetMethod().DeclaringType == callerStackBoundaryDeclaringType)
-						{
-							break;
-						}
-						frameIndex++;
-					}
+                    Assembly assembly = typeof(LocationInfo).Assembly;
 
-					// skip frames from fqnOfCallingClass
-					while (frameIndex < st.FrameCount)
-					{
-						StackFrame frame = st.GetFrame(frameIndex);
-						if (frame != null && frame.GetMethod().DeclaringType != callerStackBoundaryDeclaringType)
-						{
-							break;
-						}
-						frameIndex++;
-					}
+                    while (frameIndex < st.FrameCount)
+                    {
+                        StackFrame frame = st.GetFrame(frameIndex);
+                        if (frame != null && frame.GetMethod().DeclaringType.Assembly != assembly)
+                        {
+                            break;
+                        }
+                        frameIndex++;
+                    }
 
 					if (frameIndex < st.FrameCount)
 					{

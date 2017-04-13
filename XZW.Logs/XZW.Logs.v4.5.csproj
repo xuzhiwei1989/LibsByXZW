@@ -91,6 +91,7 @@
     <Compile Include="log4net\Appender\TextWriterAppender.cs" />
     <Compile Include="log4net\Appender\TraceAppender.cs" />
     <Compile Include="log4net\Appender\UdpAppender.cs" />
+    <Compile Include="LogData.cs" />
     <Compile Include="LogLevel.cs" />
     <Compile Include="LogUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

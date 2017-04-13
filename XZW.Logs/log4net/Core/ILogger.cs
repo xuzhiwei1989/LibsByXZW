@@ -21,6 +21,7 @@ using System;
 
 using log4net.Core;
 using log4net.Repository;
+using XZW.Logs;
 
 namespace log4net.Core
 {
@@ -42,6 +43,8 @@ namespace log4net.Core
 	/// <author>Gert Driesen</author>
 	public interface ILogger
 	{
+        LogWriteEvent WriteEvent { get; set; }
+
 		/// <summary>
 		/// Gets the name of the logger.
 		/// </summary>
@@ -69,7 +72,7 @@ namespace log4net.Core
 		/// the <paramref name="message"/> and <paramref name="exception"/>.
 		/// </para>
 		/// </remarks>
-		void Log(Type callerStackBoundaryDeclaringType, Level level, object message, Exception exception);
+        void Log(Type callerStackBoundaryDeclaringType, Level level, object message, Exception exception, bool isTriggerWriteEvent = false);
   
 		/// <summary>
 		/// This is the most generic printing method that is intended to be used 
@@ -81,7 +84,7 @@ namespace log4net.Core
 		/// Logs the specified logging event through this logger.
 		/// </para>
 		/// </remarks>
-		void Log(LoggingEvent logEvent);
+        void Log(LoggingEvent logEvent, bool isTriggerWriteEvent = false);
 
 		/// <summary>
 		/// Checks if this logger is enabled for a given <see cref="Level"/> passed as parameter.

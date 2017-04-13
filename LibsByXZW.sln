@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XZW.Logs.v2.0", "XZW.Logs\X
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XZW.Logs.v4.0", "XZW.Logs\XZW.Logs.v4.0.csproj", "{B6E15222-890A-4D27-A2DA-FDBE38A48DE4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XZW.Common", "XZW.Common\XZW.Common.csproj", "{82594DC8-1A02-4774-A4E8-8F33884EA052}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B6E15222-890A-4D27-A2DA-FDBE38A48DE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6E15222-890A-4D27-A2DA-FDBE38A48DE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6E15222-890A-4D27-A2DA-FDBE38A48DE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82594DC8-1A02-4774-A4E8-8F33884EA052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82594DC8-1A02-4774-A4E8-8F33884EA052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82594DC8-1A02-4774-A4E8-8F33884EA052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82594DC8-1A02-4774-A4E8-8F33884EA052}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

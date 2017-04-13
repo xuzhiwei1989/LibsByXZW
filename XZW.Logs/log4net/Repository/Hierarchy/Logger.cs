@@ -23,6 +23,7 @@ using System.Collections;
 using log4net.Appender;
 using log4net.Util;
 using log4net.Core;
+using XZW.Logs;
 
 namespace log4net.Repository.Hierarchy
 {
@@ -84,6 +85,36 @@ namespace log4net.Repository.Hierarchy
 		#endregion Protected Instance Constructors
 
 		#region public Instance Properties
+
+        public LogWriteEvent WriteEvent { get; set; }
+        private void OnWriteEvent(LoggingEvent loggingEvent, bool isTriggerWriteEvent)
+        {
+            if (isTriggerWriteEvent && this.WriteEvent != null)
+            {
+                try
+                {
+                    LogData data = new LogData
+                    {
+                        ClassName = loggingEvent.LocationInformation.ClassName,
+                        MethodName = loggingEvent.LocationInformation.MethodName,
+                        FileName = loggingEvent.LocationInformation.FileName,
+                        LineNumber = loggingEvent.LocationInformation.LineNumber,
+                        AppDomain = loggingEvent.Domain,
+                        Exception = loggingEvent.ExceptionObject,
+                        Identity = loggingEvent.Identity,
+                        Level = loggingEvent.Level.Name,
+                        LoggerName = loggingEvent.LoggerName,
+                        Message = loggingEvent.RenderedMessage,
+                        ThreadName = loggingEvent.ThreadName,
+                        ThreadId = SystemInfo.CurrentThreadId,
+                        Time = loggingEvent.TimeStamp,
+                        UserName = loggingEvent.UserName
+                    };
+                    this.WriteEvent(data);
+                }
+                catch { }
+            }
+        }
 
 		/// <summary>
 		/// Gets or sets the parent logger in the hierarchy.
@@ -419,26 +450,26 @@ namespace log4net.Repository.Hierarchy
 		/// This method must not throw any exception to the caller.
 		/// </para>
 		/// </remarks>
-		virtual public void Log(Type callerStackBoundaryDeclaringType, Level level, object message, Exception exception) 
-		{
-			try
-			{
-				if (IsEnabledFor(level))
-				{
-                    ForcedLog((callerStackBoundaryDeclaringType != null) ? callerStackBoundaryDeclaringType : declaringType, level, message, exception);
-				}
-			}
-			catch (Exception ex)
-			{
-				log4net.Util.LogLog.Error(declaringType, "Exception while logging", ex);
-			}
+        virtual public void Log(Type callerStackBoundaryDeclaringType, Level level, object message, Exception exception, bool isTriggerWriteEvent = false)
+        {
+            try
+            {
+                if (IsEnabledFor(level))
+                {
+                    ForcedLog((callerStackBoundaryDeclaringType != null) ? callerStackBoundaryDeclaringType : declaringType, level, message, exception, isTriggerWriteEvent);
+                }
+            }
+            catch (Exception ex)
+            {
+                log4net.Util.LogLog.Error(declaringType, "Exception while logging", ex);
+            }
 #if !NET_2_0 && !MONO_2_0 && !MONO_3_5 && !MONO_4_0 && !NETSTANDARD1_3
 			catch
 			{
 				log4net.Util.LogLog.Error(declaringType, "Exception while logging");
 			}
 #endif
-		}
+        }
 
 		/// <summary>
 		/// This is the most generic printing method that is intended to be used 
@@ -453,7 +484,7 @@ namespace log4net.Repository.Hierarchy
 		/// This method must not throw any exception to the caller.
 		/// </para>
 		/// </remarks>
-		virtual public void Log(LoggingEvent logEvent)
+        virtual public void Log(LoggingEvent logEvent, bool isTriggerWriteEvent)
 		{
 			try
 			{
@@ -461,7 +492,7 @@ namespace log4net.Repository.Hierarchy
 				{
 					if (IsEnabledFor(logEvent.Level))
 					{
-						ForcedLog(logEvent);
+                        ForcedLog(logEvent, isTriggerWriteEvent);
 					}
 				}
 			}
@@ -554,13 +585,13 @@ namespace log4net.Repository.Hierarchy
 		/// to log the particular log request.
 		/// </para>
 		/// </remarks>
-		virtual protected void CallAppenders(LoggingEvent loggingEvent) 
+        virtual protected void CallAppenders(LoggingEvent loggingEvent, bool isTriggerWriteEvent) 
 		{
 			if (loggingEvent == null)
 			{
 				throw new ArgumentNullException("loggingEvent");
 			}
-
+            this.OnWriteEvent(loggingEvent, isTriggerWriteEvent);
 			int writes = 0;
 
 			for(Logger c=this; c != null; c=c.m_parent) 
@@ -661,11 +692,11 @@ namespace log4net.Repository.Hierarchy
 		/// the <paramref name="message"/>.
 		/// </para>
 		/// </remarks>
-		virtual public void Log(Level level, object message, Exception exception) 
+        virtual public void Log(Level level, object message, Exception exception, bool isTriggerWriteEvent = false) 
 		{
 			if (IsEnabledFor(level))
 			{
-                ForcedLog(declaringType, level, message, exception);
+                ForcedLog(declaringType, level, message, exception, isTriggerWriteEvent);
 			}
 		}
 
@@ -683,9 +714,9 @@ namespace log4net.Repository.Hierarchy
 		/// appenders.
 		/// </para>
 		/// </remarks>
-		virtual protected void ForcedLog(Type callerStackBoundaryDeclaringType, Level level, object message, Exception exception) 
+        virtual protected void ForcedLog(Type callerStackBoundaryDeclaringType, Level level, object message, Exception exception, bool isTriggerWriteEvent = false) 
 		{
-			CallAppenders(new LoggingEvent(callerStackBoundaryDeclaringType, this.Hierarchy, this.Name, level, message, exception));
+            CallAppenders(new LoggingEvent(callerStackBoundaryDeclaringType, this.Hierarchy, this.Name, level, message, exception), isTriggerWriteEvent);
 		}
 
 		/// <summary>
@@ -697,14 +728,14 @@ namespace log4net.Repository.Hierarchy
 		/// Delivers the logging event to the attached appenders.
 		/// </para>
 		/// </remarks>
-		virtual protected void ForcedLog(LoggingEvent logEvent) 
+        virtual protected void ForcedLog(LoggingEvent logEvent, bool isTriggerWriteEvent) 
 		{
 			// The logging event may not have been created by this logger
 			// the Repository may not be correctly set on the event. This
 			// is required for the appenders to correctly lookup renderers etc...
 			logEvent.EnsureRepository(this.Hierarchy);
 
-			CallAppenders(logEvent);
+            CallAppenders(logEvent, isTriggerWriteEvent);
 		}
 
 		#region Private Static Fields

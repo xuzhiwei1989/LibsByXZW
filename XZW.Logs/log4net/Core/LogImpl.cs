@@ -22,6 +22,7 @@ using System.Globalization;
 
 using log4net.Repository;
 using log4net.Util;
+using XZW.Logs;
 
 namespace log4net.Core
 {
@@ -100,6 +101,12 @@ namespace log4net.Core
 	{
 		#region public Instance Constructors
 
+        public LogWriteEvent WriteEvent
+        {
+            get { return this.Logger.WriteEvent; }
+            set { this.Logger.WriteEvent = value; }
+        }
+
 		/// <summary>
 		/// Construct a new wrapper for the specified logger.
 		/// </summary>
@@ -165,9 +172,9 @@ namespace log4net.Core
 		/// <see cref="M:Debug(object,Exception)"/> form instead.
 		/// </para>
 		/// </remarks>
-		virtual public void Debug(object message) 
+        virtual public void Debug(object message, bool isTriggerWriteEvent = false) 
 		{
-			Logger.Log(ThisDeclaringType, m_levelDebug, message, null);
+            Logger.Log(ThisDeclaringType, m_levelDebug, message, null, isTriggerWriteEvent);
 		}
 
 		/// <summary>
@@ -186,9 +193,9 @@ namespace log4net.Core
 		/// </para>
 		/// </remarks>
 		/// <seealso cref="M:Debug(object)"/>
-		virtual public void Debug(object message, Exception exception) 
+        virtual public void Debug(object message, Exception exception, bool isTriggerWriteEvent = false) 
 		{
-			Logger.Log(ThisDeclaringType, m_levelDebug, message, exception);
+            Logger.Log(ThisDeclaringType, m_levelDebug, message, exception, isTriggerWriteEvent);
 		}
 
 		/// <summary>
@@ -363,9 +370,9 @@ namespace log4net.Core
 		/// <see cref="M:Info(object,Exception)"/> form instead.
 		/// </para>
 		/// </remarks>
-		virtual public void Info(object message) 
+        virtual public void Info(object message, bool isTriggerWriteEvent = false) 
 		{
-			Logger.Log(ThisDeclaringType, m_levelInfo, message, null);
+            Logger.Log(ThisDeclaringType, m_levelInfo, message, null, isTriggerWriteEvent);
 		}
   
 		/// <summary>
@@ -384,9 +391,9 @@ namespace log4net.Core
 		/// </para>
 		/// </remarks>
 		/// <seealso cref="M:Info(object)"/>
-		virtual public void Info(object message, Exception exception) 
+        virtual public void Info(object message, Exception exception, bool isTriggerWriteEvent = false) 
 		{
-			Logger.Log(ThisDeclaringType, m_levelInfo, message, exception);
+            Logger.Log(ThisDeclaringType, m_levelInfo, message, exception, isTriggerWriteEvent);
 		}
 
 		/// <summary>
@@ -561,9 +568,9 @@ namespace log4net.Core
 		/// <see cref="M:Warn(object,Exception)"/> form instead.
 		/// </para>
 		/// </remarks>
-		virtual public void Warn(object message) 
+        virtual public void Warn(object message, bool isTriggerWriteEvent = false) 
 		{
-			Logger.Log(ThisDeclaringType, m_levelWarn, message, null);
+            Logger.Log(ThisDeclaringType, m_levelWarn, message, null, isTriggerWriteEvent);
 		}
   
 		/// <summary>
@@ -582,9 +589,9 @@ namespace log4net.Core
 		/// </para>
 		/// </remarks>
 		/// <seealso cref="M:Warn(object)"/>
-		virtual public void Warn(object message, Exception exception) 
+        virtual public void Warn(object message, Exception exception, bool isTriggerWriteEvent = false) 
 		{
-			Logger.Log(ThisDeclaringType, m_levelWarn, message, exception);
+            Logger.Log(ThisDeclaringType, m_levelWarn, message, exception, isTriggerWriteEvent);
 		}
 
 		/// <summary>
@@ -759,9 +766,9 @@ namespace log4net.Core
 		/// <see cref="M:Error(object,Exception)"/> form instead.
 		/// </para>
 		/// </remarks>
-		virtual public void Error(object message) 
+        virtual public void Error(object message, bool isTriggerWriteEvent = false) 
 		{
-			Logger.Log(ThisDeclaringType, m_levelError, message, null);
+            Logger.Log(ThisDeclaringType, m_levelError, message, null, isTriggerWriteEvent);
 		}
 
 		/// <summary>
@@ -780,9 +787,9 @@ namespace log4net.Core
 		/// </para>
 		/// </remarks>
 		/// <seealso cref="M:Error(object)"/>
-		virtual public void Error(object message, Exception exception) 
+        virtual public void Error(object message, Exception exception, bool isTriggerWriteEvent = false) 
 		{
-			Logger.Log(ThisDeclaringType, m_levelError, message, exception);
+            Logger.Log(ThisDeclaringType, m_levelError, message, exception, isTriggerWriteEvent);
 		}
 
 		/// <summary>
@@ -957,9 +964,9 @@ namespace log4net.Core
 		/// <see cref="M:Fatal(object,Exception)"/> form instead.
 		/// </para>
 		/// </remarks>
-		virtual public void Fatal(object message) 
+        virtual public void Fatal(object message, bool isTriggerWriteEvent = false) 
 		{
-			Logger.Log(ThisDeclaringType, m_levelFatal, message, null);
+            Logger.Log(ThisDeclaringType, m_levelFatal, message, null, isTriggerWriteEvent);
 		}
   
 		/// <summary>
@@ -978,9 +985,9 @@ namespace log4net.Core
 		/// </para>
 		/// </remarks>
 		/// <seealso cref="M:Fatal(object)"/>
-		virtual public void Fatal(object message, Exception exception) 
+        virtual public void Fatal(object message, Exception exception, bool isTriggerWriteEvent = false) 
 		{
-			Logger.Log(ThisDeclaringType, m_levelFatal, message, exception);
+            Logger.Log(ThisDeclaringType, m_levelFatal, message, exception, isTriggerWriteEvent);
 		}
 
 		/// <summary>

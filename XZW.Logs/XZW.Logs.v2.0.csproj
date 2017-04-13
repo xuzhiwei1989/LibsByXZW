@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
-	<DocumentationFile>XZW.Logs.xml</DocumentationFile>
+    <DocumentationFile>XZW.Logs.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -90,6 +90,7 @@
     <Compile Include="log4net\Appender\TextWriterAppender.cs" />
     <Compile Include="log4net\Appender\TraceAppender.cs" />
     <Compile Include="log4net\Appender\UdpAppender.cs" />
+    <Compile Include="LogData.cs" />
     <Compile Include="LogLevel.cs" />
     <Compile Include="LogUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

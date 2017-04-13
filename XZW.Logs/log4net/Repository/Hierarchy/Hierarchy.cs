@@ -470,14 +470,14 @@ namespace log4net.Repository.Hierarchy
 		/// that logger is then responsible for logging the event.
 		/// </para>
 		/// </remarks>
-		override public void Log(LoggingEvent logEvent)
+        override public void Log(LoggingEvent logEvent)
 		{
 			if (logEvent == null)
 			{
 				throw new ArgumentNullException("logEvent");
 			}
 
-			this.GetLogger(logEvent.LoggerName, m_defaultFactory).Log(logEvent);
+            this.GetLogger(logEvent.LoggerName, m_defaultFactory).Log(logEvent, false);
 		}
 
 		/// <summary>

@@ -11,14 +11,13 @@
     <AssemblyName>XZW.Logs</AssemblyName>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-	<SchemaVersion>2.0</SchemaVersion>
+    <SchemaVersion>2.0</SchemaVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    
     <OutputPath>bin\Debug\net\v4.0\</OutputPath>
-	<AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
@@ -53,7 +52,7 @@
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-	<DocumentationFile>XZW.Logs.xml</DocumentationFile>
+    <DocumentationFile>XZW.Logs.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -93,6 +92,7 @@
     <Compile Include="log4net\Appender\TextWriterAppender.cs" />
     <Compile Include="log4net\Appender\TraceAppender.cs" />
     <Compile Include="log4net\Appender\UdpAppender.cs" />
+    <Compile Include="LogData.cs" />
     <Compile Include="LogLevel.cs" />
     <Compile Include="LogUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
